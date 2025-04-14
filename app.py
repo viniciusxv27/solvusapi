@@ -6,10 +6,12 @@ import os
 
 app = Flask(__name__)
 
-MINIO_ENDPOINT = load_dotenv("MINIO_ENDPOINT")
-MINIO_ACCESS_KEY = load_dotenv("MINIO_ACCESS_KEY")
-MINIO_SECRET_KEY = load_dotenv("MINIO_SECRET_KEY")
-MINIO_BUCKET_NAME = load_dotenv("MINIO_BUCKET_NAME")
+load_dotenv()
+
+MINIO_ENDPOINT = str(os.getenv("MINIO_ENDPOINT"))
+MINIO_ACCESS_KEY = str(os.getenv("MINIO_ACCESS_KEY"))
+MINIO_SECRET_KEY = str(os.getenv("MINIO_SECRET_KEY"))
+MINIO_BUCKET_NAME = str(os.getenv("MINIO_BUCKET_NAME"))
 
 minio_client = Minio(
     MINIO_ENDPOINT,
