@@ -44,14 +44,15 @@ def upload_file(bucket):
             minio_client.make_bucket(bucket)
 
         file_path = os.path.join(bucket, file.filename)
-        minio_client.put_object(
+        objeto = minio_client.put_object(
             bucket,
             file.filename,
             file.stream,
             length=-1,
             part_size=10 * 1024 * 1024
         )
-        return jsonify({"message": f"File '{file.filename}' uploaded successfully"}), 200
+        
+        return jsonify({"file_name": objeto.object_name, "etag": objeto.etag}), 200
     except S3Error as e:
         return jsonify({"error": str(e)}), 500
 
